@@ -7,10 +7,10 @@ t1 = time.perf_counter()
 
 #scene00001.png to scene01616.png
 frames_in_dir = r"C:\Users\Steve\Videos\smooth\Shibuya_LlSPOnQw86A\frames_in" 
-frames_out_dir = r"C:\Users\Steve\Videos\smooth\Shibuya_LlSPOnQw86A\frames_out"
+frames_out_dir = r"C:\Users\Steve\Videos\smooth\Shibuya_LlSPOnQw86A\frames_out_range48"
 
 #how many frames will be averaged into a new smoothed frame
-rangelength = 24
+rangelength = 48
 
 # Access all PNG files in directory
 allfiles=os.listdir(frames_in_dir)
@@ -30,7 +30,12 @@ print ("found " + str(len(imlist)) + " frames in " + frames_in_dir)
 
 # 1-10, 2-11, 3-12, 4-13 ...
 
-for outerloop in range(0, len(imlist) - rangelength - 1):
+# off by 2? Last image processed was 1614; last available was 1616
+
+outcount = (len(imlist) * rangelength) - rangelength
+complete = 0
+
+for outerloop in range(0, len(imlist) - rangelength):
 #for outerloop in range(0, 4):
 
   # Create a numpy array of floats to store the average (assume RGB images)
@@ -42,8 +47,16 @@ for outerloop in range(0, len(imlist) - rangelength - 1):
 
     im = imlist[outerloop + innerloop]
 
+    complete += 1
+
     filename = frames_in_dir + "\\" + im
-    print ("processing " + filename + " for out frame " + str(outerloop) + "|" + str(innerloop) + " " + "{:.2%}".format(outerloop / (len(imlist)-rangelength))) + " " + (time.perf_counter() - t1).round() + " sec"
+    status = "processing " + im + " for out frame "
+    status += str(outerloop) + "|" + str(innerloop) + "  "
+    status += str(complete) + " of " + str(outcount) + "  "
+    #status += "{:.2%}".format(outerloop / (len(imlist)-rangelength)) + "  "
+    status += "{:.2%}".format(complete/outcount) + "  "
+    status += str(round(time.perf_counter() - t1)) + " sec"
+    print (status)
 
     imarr=numpy.array(Image.open(frames_in_dir + "\\" + im),dtype=numpy.float)
     arr=arr+imarr/rangelength

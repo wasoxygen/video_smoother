@@ -1,16 +1,18 @@
 Input is a video recording.
 
-Use VLC "Scene Filter" tool to extract frames in PNG format tips
+Use VLC "Scene Filter" tool to extract frames in PNG format tips.
 
 https://www.reddit.com/r/VLC/comments/f6as7s/how_to_fix_scene_filter_if_it_isnt_working_for_you/
+
+Remember to turn Scene Filter off before playing more videos.
 
 Example Python code using the Pillow library to average multiple PNG images into one PNG image.
 
 https://stackoverflow.com/questions/17291455/how-to-get-an-average-picture-from-100-pictures-using-pil
 
-Nested loop to make sequential average PNG files, based on images 1-6, 2-7, 3-8, etc.
+Add nested loop to make sequential average PNG files, based on images 1-6, 2-7, 3-8, etc.
 
-`ffmpeg combined the average PNG images into a video, mp4 or gif format`
+Use `ffmpeg` to combine the averaged PNG images into a video, mp4 or gif formats are available
 
 https://unix.stackexchange.com/questions/68770/converting-png-frames-to-video-at-1-fps
 
